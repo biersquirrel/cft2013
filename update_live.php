@@ -3,6 +3,13 @@
 	require_once "support/web_browser.php";
 	require_once "base.php";
 
+	if (!isset($_SERVER["argc"]) || !$_SERVER["argc"])
+	{
+		echo "This file is intended to be run from the command-line.";
+
+		exit();
+	}
+
 	function DisplayError($msg)
 	{
 		echo $msg . "\n";
@@ -17,6 +24,8 @@
 	else if ($result["response"]["code"] != 200)  DisplayError("Error retrieving URL.  Server returned:  " . $result["response"]["code"] . " " . $result["response"]["meaning"]);
 
 	$data = @json_decode($result["body"], true);
+
+	$db->Query("TRUNCATE TABLE routes");
 
 	foreach ($data["routes"] as $item)
 	{

@@ -3,6 +3,13 @@
 	require_once "support/web_browser.php";
 	require_once "base.php";
 
+	if (!isset($_SERVER["argc"]) || !$_SERVER["argc"])
+	{
+		echo "This file is intended to be run from the command-line.";
+
+		exit();
+	}
+
 	function DisplayError($msg)
 	{
 		echo $msg . "\n";
